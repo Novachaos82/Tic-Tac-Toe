@@ -1,0 +1,60 @@
+@import url("https://fonts.googleapis.com/css2?family=Inconsolata:wght@500&family=Poppins:wght@300&family=Righteous&family=Spline+Sans+Mono:wght@300&display=swap");
+:root {
+  --red: #fc5185;
+  --gray: #364f6b;
+  --light-white: #f0f0f0;
+  --blue: #43dde6;
+  --purple: #645191;
+}
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: "Righteous", cursive;
+  line-height: 1.5;
+}
+
+.navbar {
+  display: grid;
+  width: 100vh;
+  /*align-items: center;*/
+  justify-content: center;
+  margin: 5vh auto;
+  text-align: center;
+}
+
+.navbar h1 {
+  color: var(--gray);
+  font-size: 5rem;
+  text-shadow: 4px 4px var(--red);
+}
+
+#startGame {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto;
+  padding: 10px 5px;
+  background: linear-gradient(to right, var(--red), var(--purple));
+  color: white;
+  font-weight: 600;
+  font-size: 16px;
+  border: none;
+  letter-spacing: 0.1rem;
+  border-radius: 0.25rem;
+  /*z-index: -1;*/
+}
+
+#startGame.hidden {
+  display: none;
+}
+
+#modeSelectDiv {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto;
+}
