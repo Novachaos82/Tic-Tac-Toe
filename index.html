@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Tic tac toe</title>
+  </head>
+  <body>
+    <div class="navbar">
+      <h4>Tic Tac Toe</h4>
+    </div>
+    <button id="startGame">Start Game</button>
+    <div id="modeSelectDiv">
+      <button id="Bot">AI</button>
+      <button id="Player">P vs P</button>
+    </div>
+
+    <form action="" id="playerNames">
+      <div class="players">
+        <label for="Player1">Player 1</label>
+        <input type="text" id="Player1" />
+      </div>
+      <div class="players">
+        <label for="Player2">Player 2</label>
+        <input type="text" id="Player2" />
+      </div>
+      <input type="submit" value="submit" id="playerDivSubmit" />
+    </form>
+
+    <div id="gridDiv">
+      <div class="boxes" data-index="1"></div>
+      <div class="boxes" data-index="2"></div>
+      <div class="boxes" data-index="3"></div>
+      <div class="boxes" data-index="4"></div>
+      <div class="boxes" data-index="5"></div>
+      <div class="boxes" data-index="6"></div>
+      <div class="boxes" data-index="7"></div>
+      <div class="boxes" data-index="8"></div>
+      <div class="boxes" data-index="9"></div>
+    </div>
+
+    <button class="restart">Restart</button>
+  </body>
+</html>
