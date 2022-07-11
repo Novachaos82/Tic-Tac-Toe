@@ -17,34 +17,49 @@
     </div>
     <button id="startGame" class="hidden">Start Game</button>
     <div id="modeSelectDiv">
-      <button id="Bot">AI</button>
-      <button id="Player">P vs P</button>
+      <button id="Bot" class="ai-btn">AI</button>
+      <button id="Player" class="player-btn">P vs P</button>
     </div>
 
-    <form action="" id="playerNames">
-      <div class="players">
-        <label for="Player1">Player 1</label>
-        <input type="text" id="Player1" />
-      </div>
-      <div class="players">
-        <label for="Player2">Player 2</label>
-        <input type="text" id="Player2" />
-      </div>
-      <input type="submit" value="submit" id="playerDivSubmit" />
-    </form>
-
-    <div id="gridDiv">
-      <div class="boxes" data-index="1"></div>
-      <div class="boxes" data-index="2"></div>
-      <div class="boxes" data-index="3"></div>
-      <div class="boxes" data-index="4"></div>
-      <div class="boxes" data-index="5"></div>
-      <div class="boxes" data-index="6"></div>
-      <div class="boxes" data-index="7"></div>
-      <div class="boxes" data-index="8"></div>
-      <div class="boxes" data-index="9"></div>
+    <div class="form">
+      <form action="" id="playerNames">
+        <div class="players">
+          <label for="Player1">Player 1</label>
+          <input type="text" id="Player1" />
+        </div>
+        <div class="players">
+          <label for="Player2">Player 2</label>
+          <input type="text" id="Player2" />
+        </div>
+        <button value="submit" id="playerDivSubmit">Submit</button>
+      </form>
     </div>
 
-    <button class="restart">Restart</button>
+    <div id="gridDiv" class="grid-div">
+      <div id="board" class="board-div">
+        <div class="boxes" data-index="1">X</div>
+        <div class="boxes" data-index="2">O</div>
+        <div class="boxes" data-index="3"></div>
+        <div class="boxes" data-index="4"></div>
+        <div class="boxes" data-index="5"></div>
+        <div class="boxes" data-index="6"></div>
+        <div class="boxes" data-index="7"></div>
+        <div class="boxes" data-index="8"></div>
+        <div class="boxes" data-index="9"></div>
+      </div>
+
+      <div>
+        <button class="restart">Restart</button>
+
+        <p id="theGridText">sc</p>
+      </div>
+    </div>
+
+    <div class="player-details">
+      <div class="left-text">Something</div>
+      <div class="left-score">4</div>
+      <div class="right-text">Anything</div>
+      <div class="right-score">3</div>
+    </div>
   </body>
 </html>

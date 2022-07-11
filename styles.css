@@ -5,6 +5,7 @@
   --light-white: #f0f0f0;
   --blue: #43dde6;
   --purple: #645191;
+  --button1: #a141de;
 }
 * {
   margin: 0;
@@ -15,11 +16,17 @@
 body {
   font-family: "Righteous", cursive;
   line-height: 1.5;
+  background: #f0f0f0;
 }
 
+button {
+  border-radius: 0.25rem;
+}
+
+/*navbar*/
 .navbar {
   display: grid;
-  width: 100vh;
+  /*width: 100vh;*/
   /*align-items: center;*/
   justify-content: center;
   margin: 5vh auto;
@@ -32,6 +39,7 @@ body {
   text-shadow: 4px 4px var(--red);
 }
 
+/*start game btn*/
 #startGame {
   display: flex;
   align-items: center;
@@ -44,7 +52,7 @@ body {
   font-size: 16px;
   border: none;
   letter-spacing: 0.1rem;
-  border-radius: 0.25rem;
+
   /*z-index: -1;*/
 }
 
@@ -52,9 +60,160 @@ body {
   display: none;
 }
 
+/*mode select ai or pvp*/
 #modeSelectDiv {
   display: flex;
   align-items: center;
   justify-content: center;
   margin: 0 auto;
+  gap: 100px;
+}
+
+#modeSelectDiv .ai-btn,
+#modeSelectDiv .player-btn {
+  cursor: pointer;
+  width: 120px;
+  height: fit-content;
+  border: none;
+  background: var(--button1);
+  color: white;
+  font-weight: 600;
+  letter-spacing: 0.1rem;
+  font-size: 18px;
+  transition: ease-in 0.3s;
+  padding: 7px;
+}
+
+#modeSelectDiv .player-btn {
+  background: var(--gray);
+}
+
+#modeSelectDiv .player-btn:hover {
+  background: white;
+  color: var(--gray);
+}
+
+#modeSelectDiv .ai-btn:hover {
+  background: white;
+  color: var(--button1);
+}
+
+/*pvp form*/
+.form {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  width: 120px;
+  margin: 0 auto;
+  margin-top: 40px;
+  /*line-height: 8;*/
+}
+
+.form.hidden {
+  visibility: hidden;
+}
+
+.form input[type="text"] {
+  padding: 8px;
+  outline: none;
+
+  border: none;
+  background: #fff;
+}
+
+.form button {
+  cursor: pointer;
+  margin-top: 10px;
+  padding: 7px;
+  width: 100%;
+  background: var(--gray);
+  border: none;
+  color: #fff;
+  font-weight: bold;
+  letter-spacing: 0.1rem;
+  transition: all 0.3s linear;
+  box-shadow: 2px 2px var(--gray);
+}
+
+.form button:hover {
+  background: var(--red);
+  color: #fff;
+}
+
+/*game board*/
+.grid-div {
+  display: grid;
+  flex-direction: column;
+  justify-content: center;
+  /*align-items: center;*/
+  margin: 40px auto;
+}
+
+.board-div {
+  /*position: relative;*/
+  display: grid;
+  grid-template-columns: repeat(3, 100px);
+  grid-template-rows: repeat(3, 100px);
+  gap: 10px;
+  /*align-items: center;*/
+}
+
+.board-div .boxes {
+  cursor: pointer;
+  display: flex;
+  background: var(--purple);
+  justify-content: center;
+  align-items: center;
+  font-size: 5rem;
+  color: white;
+}
+
+.restart {
+  margin-top: 20px;
+  /*position: absolute;*/
+  width: 100px;
+  background: var(--red);
+  border: none;
+  padding: 10px;
+  color: white;
+  /*font-size: 18px;*/
+  letter-spacing: 0.1rem;
+  cursor: pointer;
+}
+
+.restart:hover {
+}
+
+.player-details.hidden {
+  visibility: hidden;
+}
+
+.left-text {
+  position: absolute;
+  top: 40%;
+  left: 15%;
+  font-size: 30px;
+}
+
+.left-score {
+  position: absolute;
+  top: 50%;
+  left: 17%;
+  /*text-align: center;*/
+  font-size: 80px;
+}
+
+.right-text {
+  position: absolute;
+  top: 40%;
+  right: 15%;
+  font-size: 30px;
+}
+
+.right-score {
+  position: absolute;
+  top: 50%;
+  right: 17%;
+  font-size: 80px;
 }
