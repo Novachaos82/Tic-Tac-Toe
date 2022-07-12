@@ -40,24 +40,54 @@ playerNameSubmit.addEventListener("click", (e) => {
   mark();
 });
 
-const winConditions = [
-  [1, 2, 3],
-  [4, 5, 6],
-  [7, 8, 9],
-  [1, 5, 9],
-  [3, 5, 7],
-  [1, 4, 7],
-  [2, 5, 8],
-  [3, 6, 9],
-];
-function mark() {
-  boxes.forEach((box) => {
-    box.addEventListener("click", () => {
-      box.textContent = "O";
-    });
+//const winConditions = [
+//  [1, 2, 3],
+//  [4, 5, 6],
+//  [7, 8, 9],
+//  [1, 5, 9],
+//  [3, 5, 7],
+//  [1, 4, 7],
+//  [2, 5, 8],
+//  [3, 6, 9],
+//];
 
-    for (i = 0; i < winConditions.length(); i++) {
-      for (i = 0; i < 3; i++) {}
-    }
+function mark() {
+  let turn = 1;
+  boxes.forEach((box) => {
+    box.textContent = "";
+    box.addEventListener("click", () => {
+      if (turn % 2 != 0 && box.textContent === "") {
+        console.log("yes x");
+        player1Mark(box);
+      } else if (turn % 2 === 0 && box.textContent === "") {
+        console.log("yes o");
+        player2Mark(box);
+      }
+      turn++;
+      //wincheck(box);
+    });
   });
+}
+//function wincheck(box) {
+//  let count = 0;
+//  for (let i = 0; i < winConditions.length; i++) {
+//    for (let j = 0; j < 3; j++) {
+//      console.log(winConditions[i][j]);
+//      if (box.dataset.index === winConditions[i][j]) {
+//        console.log(box.dataset.index);
+//        count++;
+//      }
+//    }
+//    if (count === 3) {
+//      console.log("won");
+//    }
+//  }
+//}
+
+function player1Mark(box) {
+  box.textContent = "X";
+}
+
+function player2Mark(box) {
+  box.textContent = "O";
 }
