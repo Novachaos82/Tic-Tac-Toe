@@ -66,11 +66,14 @@ function twoPlayer() {
       //console.log(boxes[2].textContent === "X");
       if (wincheckX(boxes)) {
         scoreX();
-
+        scoreWinCheck(scoreXscore);
         clearGrid();
+
         console.log("yes win x");
       } else if (wincheckO(boxes)) {
         scoreO();
+        scoreWinCheck(scoreOscore);
+
         clearGrid();
         console.log("yes win y");
       }
@@ -116,7 +119,7 @@ function twoPlayer() {
     turn = 1;
   });
 
-  function restart() {
+  function disableGrid() {
     clearGrid();
   }
 
@@ -140,11 +143,21 @@ function twoPlayer() {
     boxes.forEach((box) => {
       box.textContent = "";
     });
-
     turn = 1;
   }
-}
 
+  function scoreWinCheck(score) {
+    if (score === 5) {
+      document.getElementById("theGridText").textContent = `${
+        document.getElementById("Player1").value
+      } won`;
+
+      boxes.forEach((box) => {
+        box.style.pointerEvents = "none";
+      });
+    }
+  }
+}
 function formClose() {
   playerNameForm.classList.add("hidden");
 }
