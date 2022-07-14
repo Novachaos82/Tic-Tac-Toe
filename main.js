@@ -6,7 +6,7 @@ const playerDetails = document.querySelector(".player-details");
 const botBtn = document.getElementById("Bot");
 const playerBtn = document.getElementById("Player");
 const playerNameSubmit = document.getElementById("playerDivSubmit");
-
+const restartBtn = document.querySelector(".restart");
 const boxes = document.querySelectorAll(".boxes");
 
 (function () {
@@ -24,21 +24,15 @@ const boxes = document.querySelectorAll(".boxes");
   });
 
   botBtn.addEventListener("click", () => {
-    playerNameForm.classList.add("hidden");
+    formClose();
     gridDiv.classList.remove("hidden");
     mark();
   });
 
   playerBtn.addEventListener("click", () => {
-    playerNameForm.classList.remove("hidden");
+    formOpen();
 
     gridDiv.classList.remove("hidden");
-  });
-
-  playerNameSubmit.addEventListener("click", (e) => {
-    e.preventDefault();
-    playerDetails.classList.remove("hidden");
-    mark();
   });
 })();
 
@@ -53,7 +47,8 @@ const winConditions = [
   [2, 4, 6],
 ];
 
-function mark() {
+function twoPlayer() {
+  score = 0;
   let turn = 1;
   boxes.forEach((box) => {
     box.textContent = "";
@@ -61,47 +56,77 @@ function mark() {
       if (turn % 2 != 0 && box.textContent === "") {
         console.log("yes x");
         player1Mark(box);
+        turn++;
       } else if (turn % 2 === 0 && box.textContent === "") {
         console.log("yes o");
         player2Mark(box);
+        turn++;
       }
-      turn++;
       //console.log(boxes[2].textContent === "X");
       console.log(wincheck(boxes));
     });
   });
-}
-//function wincheck(box) {
-//  let count = 0;
-//  for (let i = 0; i < winConditions.length; i++) {
-//    for (let j = 0; j < 3; j++) {
-//      if (box.dataset.index === winConditions[i][j]) {
-//        console.log(winConditions[i][j]);
-//        count++;
-//      }
-//    }
-//  }
-//  if (count === 3) {
-//    console.log("won");
-//  }
-//  count = 0;
-//}
 
-function wincheck(boxes) {
-  return winConditions.some((combination) => {
-    //console.log(combination);
-    return combination.every((i) => {
-      //console.log(i);
-      return boxes[i].textContent === "X";
-      //console.log("check");
+  function wincheck(boxes) {
+    return winConditions.some((innerArray) => {
+      //console.log(combination);
+      return innerArray.every((i) => {
+        //console.log(i);
+        return boxes[i].textContent === "X";
+        //console.log("check");
+      });
     });
+  }
+
+  function player1Mark(box) {
+    box.textContent = "X";
+  }
+
+  function player2Mark(box) {
+    box.textContent = "O";
+  }
+  restartBtn.addEventListener("click", () => {
+    window.location.reload();
+    turn = 1;
   });
+
+  function restart() {
+    clearGrid();
+  }
+
+  function clearGrid() {
+    boxes.forEach((box) => {
+      box.textContent = "";
+    });
+
+    return { clearGrid, restart };
+  }
 }
 
-function player1Mark(box) {
-  box.textContent = "X";
+function formClose() {
+  playerNameForm.classList.add("hidden");
 }
 
-function player2Mark(box) {
-  box.textContent = "O";
+function formOpen() {
+  playerNameForm.classList.remove("hidden");
 }
+
+(function playerUpdate() {
+  playerNameSubmit.addEventListener("click", (e) => {
+    e.preventDefault();
+    playerDetails.classList.remove("hidden");
+    formClose();
+    twoPlayer();
+    playerUpdate();
+  });
+
+  const Player1 = document.getElementById("Player1");
+  const leftPlayerName = document.querySelector(".left-text");
+  console.log(Player1.value);
+  leftPlayerName.textContent = Player1.value;
+
+  //const Player2
+  //const rightPlayerName = document.querySelector(".right-text");
+  //const leftScore = document.querySelector(".left-score");
+  //const rightScore = document.querySelector(".right-score");
+})();
