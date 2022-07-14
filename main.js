@@ -48,7 +48,8 @@ const winConditions = [
 ];
 
 function twoPlayer() {
-  score = 0;
+  let scoreXscore = 0;
+  let scoreOscore = 0;
   let turn = 1;
   boxes.forEach((box) => {
     box.textContent = "";
@@ -63,16 +64,41 @@ function twoPlayer() {
         turn++;
       }
       //console.log(boxes[2].textContent === "X");
-      console.log(wincheck(boxes));
+      if (wincheckX(boxes)) {
+        scoreX();
+
+        clearGrid();
+        console.log("yes win x");
+      } else if (wincheckO(boxes)) {
+        scoreO();
+        clearGrid();
+        console.log("yes win y");
+      }
     });
   });
 
-  function wincheck(boxes) {
+  function wincheckX(boxes) {
+    let score = 0;
     return winConditions.some((innerArray) => {
       //console.log(combination);
       return innerArray.every((i) => {
         //console.log(i);
         return boxes[i].textContent === "X";
+        //console.log("check");
+      });
+    });
+    //const leftScore = document.querySelector(".left-score");
+    //leftScore.textContent = ++score;
+  }
+
+  function wincheckO(boxes) {
+    let score = 0;
+    return winConditions.some((innerArray) => {
+      //console.log(combination);
+      return innerArray.every((i) => {
+        //console.log(i);
+
+        return boxes[i].textContent === "O";
         //console.log("check");
       });
     });
@@ -94,12 +120,28 @@ function twoPlayer() {
     clearGrid();
   }
 
+  function scoreX() {
+    const leftScore = document.querySelector(".left-score");
+    leftScore.textContent = scoreXscore;
+    {
+      leftScore.textContent = ++scoreXscore;
+    }
+  }
+
+  function scoreO() {
+    const rightScore = document.querySelector(".right-score");
+    rightScore.textContent = scoreOscore;
+    {
+      rightScore.textContent = ++scoreOscore;
+    }
+  }
+
   function clearGrid() {
     boxes.forEach((box) => {
       box.textContent = "";
     });
 
-    return { clearGrid, restart };
+    turn = 1;
   }
 }
 
@@ -112,21 +154,24 @@ function formOpen() {
 }
 
 (function playerUpdate() {
-  playerNameSubmit.addEventListener("click", (e) => {
-    e.preventDefault();
-    playerDetails.classList.remove("hidden");
-    formClose();
-    twoPlayer();
-    playerUpdate();
-  });
-
   const Player1 = document.getElementById("Player1");
+  const Player2 = document.getElementById("Player2");
+  {
+    playerNameSubmit.addEventListener("click", (e) => {
+      e.preventDefault();
+      if (Player1.value !== "" && Player2.value !== "") {
+        playerDetails.classList.remove("hidden");
+        formClose();
+        twoPlayer();
+        playerUpdate();
+      }
+    });
+  }
+
   const leftPlayerName = document.querySelector(".left-text");
   console.log(Player1.value);
   leftPlayerName.textContent = Player1.value;
 
-  //const Player2
-  //const rightPlayerName = document.querySelector(".right-text");
-  //const leftScore = document.querySelector(".left-score");
-  //const rightScore = document.querySelector(".right-score");
+  const rightPlayerName = document.querySelector(".right-text");
+  rightPlayerName.textContent = Player2.value;
 })();
