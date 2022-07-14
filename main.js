@@ -65,19 +65,24 @@ function twoPlayer() {
         turn++;
       }
       //console.log(boxes[2].textContent === "X");
+      console.log(tieCheck(boxes) + "tie check log");
+      if (tieCheck(boxes)) {
+      }
       if (wincheckX(boxes)) {
         scoreX();
         scoreWinCheckX(scoreXscore);
         if (scoreXscore < 5) {
           clearGrid();
         }
-
-        console.log("yes win x");
-      } else if (wincheckO(boxes)) {
+      }
+      if (wincheckO(boxes)) {
         scoreO();
         scoreWinCheckO(scoreOscore);
 
-        clearGrid();
+        if (scoreOscore < 5) {
+          clearGrid();
+        }
+
         console.log("yes win y");
       }
     });
@@ -110,6 +115,18 @@ function twoPlayer() {
     });
   }
 
+  function tieCheck(squares) {
+    if (turn === 10 || (scoreOscore === 5 && scoreXscore === 5)) {
+      squares.forEach((square) => {
+        if (square.textContent === "X" || square.textContent === "O") {
+          console.log("something");
+          scoreWinCheckTie();
+          clearGrid();
+        }
+      });
+    }
+  }
+
   function player1Mark(box) {
     box.textContent = "X";
   }
@@ -121,10 +138,6 @@ function twoPlayer() {
     window.location.reload();
     turn = 1;
   });
-
-  function disableGrid() {
-    clearGrid();
-  }
 
   function scoreX() {
     const leftScore = document.querySelector(".left-score");
@@ -172,6 +185,15 @@ function twoPlayer() {
       });
     }
   }
+}
+
+function scoreWinCheckTie() {
+  console.log("called score win check tie");
+  document.getElementById("theGridText").textContent = "tie";
+
+  boxes.forEach((box) => {
+    box.style.pointerEvents = "none";
+  });
 }
 function formClose() {
   playerNameForm.classList.add("hidden");
