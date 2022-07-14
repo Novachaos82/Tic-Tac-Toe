@@ -24,9 +24,10 @@ const boxes = document.querySelectorAll(".boxes");
   });
 
   botBtn.addEventListener("click", () => {
-    formClose();
-    gridDiv.classList.remove("hidden");
-    mark();
+    //formClose();
+    //gridDiv.classList.remove("hidden");
+    //mark();
+    alert("woking on it");
   });
 
   playerBtn.addEventListener("click", () => {
@@ -66,13 +67,15 @@ function twoPlayer() {
       //console.log(boxes[2].textContent === "X");
       if (wincheckX(boxes)) {
         scoreX();
-        scoreWinCheck(scoreXscore);
-        clearGrid();
+        scoreWinCheckX(scoreXscore);
+        if (scoreXscore < 5) {
+          clearGrid();
+        }
 
         console.log("yes win x");
       } else if (wincheckO(boxes)) {
         scoreO();
-        scoreWinCheck(scoreOscore);
+        scoreWinCheckO(scoreOscore);
 
         clearGrid();
         console.log("yes win y");
@@ -146,10 +149,22 @@ function twoPlayer() {
     turn = 1;
   }
 
-  function scoreWinCheck(score) {
+  function scoreWinCheckX(score) {
     if (score === 5) {
       document.getElementById("theGridText").textContent = `${
         document.getElementById("Player1").value
+      } won`;
+
+      boxes.forEach((box) => {
+        box.style.pointerEvents = "none";
+      });
+    }
+  }
+
+  function scoreWinCheckO(score) {
+    if (score === 5) {
+      document.getElementById("theGridText").textContent = `${
+        document.getElementById("Player2").value
       } won`;
 
       boxes.forEach((box) => {
