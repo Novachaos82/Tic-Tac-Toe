@@ -1,6 +1,7 @@
 const startBtn = document.getElementById("startGame");
 const modeSelectDiv = document.getElementById("modeSelectDiv");
 const playerNameForm = document.querySelector(".form");
+const form = document.getElementById("playerNames");
 const gridDiv = document.getElementById("gridDiv");
 const playerDetails = document.querySelector(".player-details");
 const botBtn = document.getElementById("Bot");
@@ -8,7 +9,7 @@ const playerBtn = document.getElementById("Player");
 const playerNameSubmit = document.getElementById("playerDivSubmit");
 const restartBtn = document.querySelector(".restart");
 const boxes = document.querySelectorAll(".boxes");
-
+const playAgainBtn = document.querySelector(".playAgain");
 (function () {
   modeSelectDiv.classList.add("hidden");
   playerNameForm.classList.add("hidden");
@@ -32,8 +33,10 @@ const boxes = document.querySelectorAll(".boxes");
 
   playerBtn.addEventListener("click", () => {
     formOpen();
+    form.reset();
 
     gridDiv.classList.remove("hidden");
+    playerBtn.disabled = true;
   });
 })();
 
@@ -52,6 +55,8 @@ function twoPlayer() {
   let scoreXscore = 0;
   let scoreOscore = 0;
   let turn = 1;
+  tie = false;
+  clearGrid();
   boxes.forEach((box) => {
     box.textContent = "";
     box.addEventListener("click", () => {
@@ -65,28 +70,32 @@ function twoPlayer() {
         turn++;
       }
       //console.log(boxes[2].textContent === "X");
-      console.log(tieCheck(boxes) + "tie check log");
-      if (tieCheck(boxes)) {
-      }
-      if (wincheckX(boxes)) {
-        scoreX();
-        scoreWinCheckX(scoreXscore);
-        if (scoreXscore < 5) {
-          clearGrid();
-        }
-      }
-      if (wincheckO(boxes)) {
-        scoreO();
-        scoreWinCheckO(scoreOscore);
-
-        if (scoreOscore < 5) {
-          clearGrid();
-        }
-
-        console.log("yes win y");
-      }
+      checks(boxes);
     });
   });
+
+  function checks(boxes) {
+    console.log(turn + "turna");
+    if (wincheckX(boxes)) {
+      scoreX();
+      scoreWinCheckX(scoreXscore);
+      //if (scoreXscore < 5) {
+      //  clearGrid();
+      //}
+    } else if (wincheckO(boxes)) {
+      scoreO();
+      scoreWinCheckO(scoreOscore);
+
+      //if (scoreOscore < 5) {
+      //  clearGrid();
+      //}
+
+      console.log("yes win y");
+    } else if (turn >= 10) {
+      console.log("yes  tie");
+      scoreWinCheckTie();
+    }
+  }
 
   function wincheckX(boxes) {
     let score = 0;
@@ -119,9 +128,8 @@ function twoPlayer() {
     if (turn === 10 || (scoreOscore === 5 && scoreXscore === 5)) {
       squares.forEach((square) => {
         if (square.textContent === "X" || square.textContent === "O") {
-          console.log("something");
-          scoreWinCheckTie();
-          clearGrid();
+          console.log("true ticchek");
+          tie = true;
         }
       });
     }
@@ -161,30 +169,42 @@ function twoPlayer() {
     });
     turn = 1;
   }
+  function pointerEventToNone() {
+    boxes.forEach((box) => {
+      box.style.pointerEvents = "none";
+    });
+  }
 
   function scoreWinCheckX(score) {
     if (score === 5) {
-      document.getElementById("theGridText").textContent = `${
-        document.getElementById("Player1").value
-      } won`;
-
-      boxes.forEach((box) => {
-        box.style.pointerEvents = "none";
-      });
+      playAgainBtn.classList.add("hidden");
     }
+    document.getElementById("theGridText").textContent = `${
+      document.getElementById("Player1").value
+    } won`;
+    pointerEventToNone();
   }
 
   function scoreWinCheckO(score) {
     if (score === 5) {
-      document.getElementById("theGridText").textContent = `${
-        document.getElementById("Player2").value
-      } won`;
-
-      boxes.forEach((box) => {
-        box.style.pointerEvents = "none";
-      });
+      playAgainBtn.classList.add("hidden");
     }
+    document.getElementById("theGridText").textContent = `${
+      document.getElementById("Player2").value
+    } won`;
+    pointerEventToNone();
   }
+
+  if (scoreOscore > 5 || scoreXscore > 5) {
+    playAgainBtn.classList.add("hidden");
+  }
+  playAgainBtn.addEventListener("click", () => {
+    document.getElementById("theGridText").textContent = "";
+    clearGrid();
+    boxes.forEach((box) => {
+      box.style.pointerEvents = "auto";
+    });
+  });
 }
 
 function scoreWinCheckTie() {
@@ -197,6 +217,7 @@ function scoreWinCheckTie() {
 }
 function formClose() {
   playerNameForm.classList.add("hidden");
+  //playerNameForm.reset();
 }
 
 function formOpen() {
@@ -212,8 +233,9 @@ function formOpen() {
       if (Player1.value !== "" && Player2.value !== "") {
         playerDetails.classList.remove("hidden");
         formClose();
-        twoPlayer();
+
         playerUpdate();
+        twoPlayer();
       }
     });
   }

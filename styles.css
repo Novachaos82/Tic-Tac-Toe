@@ -181,7 +181,8 @@ button {
   color: white;
 }
 
-.restart {
+.restart,
+.playAgain {
   /*position: absolute;*/
   width: 100px;
   background: var(--red);
@@ -239,4 +240,8 @@ button {
 #theGridText {
   justify-content: center;
   font-size: 30px;
+}
+
+.playAgain.hidden {
+  visibility: hidden;
 }
